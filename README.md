@@ -45,7 +45,3 @@ Contribuições são bem-vindas! Se você deseja melhorar este bot de alguma for
 
 ## Licença
 Este projeto está licenciado sob a Licença MIT. Consulte o arquivo [LICENSE](LICENSE) para obter detalhes.
-
----
-
-Espero que este README forneça todas as informações necessárias para utilizar e contribuir para este projeto. Se precisar de mais alguma coisa, não hesite em entrar em contato!
