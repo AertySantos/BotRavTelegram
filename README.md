@@ -30,7 +30,8 @@ Outra funcionalidade deste bot é a capacidade de extrair texto de arquivos de �
    - Adicione suas credenciais ao arquivo `config.sh` da seguinte maneira:
 
     ```bash
-    botTOKEN="seu_token_aqui"
+    TELEGRAM_TOKEN="seu_token_aqui"
+
     ```
 
 5. **Execução do Bot**
