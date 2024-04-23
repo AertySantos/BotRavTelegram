@@ -23,15 +23,15 @@ function configuracao(){
 		echo entrou no token 1 >> arquivos/depura.txt
 		
 	elif [ "$1"=="2" ] ; then
-		botTOKEN="6194010871:AAFO7LIlGJ5IHcU2PnW3kaMGepL16sQYdIU"
+		botTOKEN="00"
 		nameBot="Bot2"
 		echo entrou no token 2 >> arquivos/depura.txt
 	elif [ "$1"=="3" ]; then
-		botTOKEN="6194010871:AAFO7LIlGJ5IHcU2PnW3kaMGepL16sQYdIU"
+		botTOKEN="00"
 		nameBot="BoT3"
 		echo entrou no token 3 >> arquivos/depura.txt
 	else
-		botTOKEN="6194010871:AAFO7LIlGJ5IHcU2PnW3kaMGepL16sQYdIU"
+		botTOKEN="00"
 		echo entrou no senao >> arquivos/depura.txt
 		nameBot="Bot0"
 		ordem="0"
