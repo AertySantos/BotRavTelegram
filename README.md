@@ -1,4 +1,4 @@
-# README - Telegram Bot for Text Extraction (Bash Version)
+# Telegram Bot for Text Extraction
 
 Este repositório contém o código-fonte de um bot do Telegram desenvolvido em Bash para receber mensagens de texto, extrair texto de imagens e também extrair texto de arquivos de áudio.
 
@@ -30,7 +30,7 @@ Outra funcionalidade deste bot é a capacidade de extrair texto de arquivos de �
    - Adicione suas credenciais ao arquivo `config.sh` da seguinte maneira:
 
     ```bash
-    TELEGRAM_TOKEN="seu_token_aqui"
+    botTOKEN="seu_token_aqui"
     ```
 
 5. **Execução do Bot**
