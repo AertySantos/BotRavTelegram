@@ -35,7 +35,7 @@ Outra funcionalidade deste bot é a capacidade de extrair texto de arquivos de �
     ```
 
 5. **Execução do Bot**
-   - Execute `./bot.sh` para iniciar o bot.
+   - Execute `./main.sh` para iniciar o bot.
 
 6. **Utilização no Telegram**
    - Encontre o bot no Telegram e inicie uma conversa.
