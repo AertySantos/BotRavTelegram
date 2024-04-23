@@ -16,9 +16,10 @@ function configuracao(){
 
 	# Definir o nome da pasta que ficarao os arquivos
 	pasta_nome="arquivos"
+	source config.sh
 
 	if [ "$1"=="1" ]  ; then
-		botTOKEN="Seu token do telegram"
+		botTOKEN=$TELEGRAM_TOKEN
 		nameBot="RavAerty"
 		echo entrou no token 1 >> arquivos/depura.txt
 		
