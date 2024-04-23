@@ -18,7 +18,7 @@ function configuracao(){
 	pasta_nome="arquivos"
 
 	if [ "$1"=="1" ]  ; then
-		botTOKEN="6660292431:AAEpce27tVy28JFzy-HRgGYuuZeV4W2HpIg"
+		botTOKEN="Seu token do telegram"
 		nameBot="RavAerty"
 		echo entrou no token 1 >> arquivos/depura.txt
 		
