@@ -23,7 +23,7 @@ Outra funcionalidade deste bot é a capacidade de extrair texto de arquivos de �
    - Copie o token fornecido pelo BotFather.
 
 3. **Instalação das Dependências**
-   - Certifique-se de ter o `curl` e outras ferramentas de linha de comando necessárias instaladas em seu sistema.
+   - Certifique-se de ter o `curl`, `jr` e outras ferramentas de linha de comando necessárias instaladas em seu sistema.
 
 4. **Configuração das Credenciais**
    - Crie um arquivo `config.sh` na raiz do projeto.
