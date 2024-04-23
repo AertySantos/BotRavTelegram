@@ -43,6 +43,3 @@ Outra funcionalidade deste bot é a capacidade de extrair texto de arquivos de �
 
 ## Contribuição
 Contribuições são bem-vindas! Se você deseja melhorar este bot de alguma forma, sinta-se à vontade para enviar um pull request.
-
-## Licença
-Este projeto está licenciado sob a Licença MIT. Consulte o arquivo [LICENSE](LICENSE) para obter detalhes.
