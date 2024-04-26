@@ -3,7 +3,7 @@ botToken=""
 tipoInteracao=""
 file_path=""
 indiceMensagem=""
-versao="1.3"
+versao="1.5"
 defaultMsg="Olá estou na versão $versão, sou o "
 nameBot=""
 offset=""
@@ -27,10 +27,7 @@ function configuracao(){
 		botTOKEN="00"
 		nameBot="Bot2"
 		echo entrou no token 2 >> arquivos/depura.txt
-	elif [ "$1"=="3" ]; then
-		botTOKEN="00"
-		nameBot="BoT3"
-		echo entrou no token 3 >> arquivos/depura.txt
+	
 	else
 		botTOKEN="00"
 		echo entrou no senao >> arquivos/depura.txt
@@ -126,10 +123,7 @@ function atualizanextID(){
 		echo $offset > ${caminho_completo}/next_id.txt
 }
 
-function exportaLogCSV(){
-echo ""
 
-}
 function sendMensagem(){
 msg_status=`curl -s -X POST -H 'Content-Type: application/json' \
 			-d '{"chat_id": "'"${chat_id}"'", "text": "'"${msg}"'"}' \
@@ -156,16 +150,16 @@ function ouvir(){
 			range=$((quantidademensagem-1))
 			#echo "entrou aqui"
 			for indiceMensagem in $(seq 0 $range); do
+				timestamp="$(echo $result | jq -r ".[].message.date")"
+				file_jsonResult="$(echo "$result" | sed 's/[][]//g')"
 				defineTipoInteracao
-				exportaLogCSV
+				logTexto
 				sendMensagem
 				if [ $indiceMensagem==$range ]; then 
 					atualizanextID
 				fi
-				
-			done
 
-			exportacsv	
+			done	
 		fi
 		# Introduzir um atraso de 500 milissegundos (0.5 segundos)
         sleep 0.5
@@ -176,15 +170,16 @@ function ouvir(){
 processarText(){
 	#
 	textoRecebido="$(echo ${result} | jq -r ".[$indiceMensagem].message.text")"
-
+	
 	#resposta a ser enviada
-	msg="$(echo ${result} | jq -r ".[$indiceMensagem].message.text") também"			
+	msg="$(echo ${result} | jq -r ".[$indiceMensagem].message.text") também"	
+	#T1 codigo de texto
+	codigo="T1"
 
 }
 
 processarPhoto(){
-#
-		
+	#processamento de imagem		
 	document_confirm="$(echo $result | jq -r ".[].message.document")"
 	document_confirm="$(echo ${document_confirm} | cut -d " " -f1)"
 	
@@ -242,6 +237,9 @@ processarPhoto(){
     	msg="O texto tem apenas $conta_caracter caracteres"
 		situacao="C102"
 	fi
+	#codigo de imagem
+	codigo="T2"
+	logImg
 
 }
 
@@ -257,7 +255,8 @@ processarAudio() {
 
         # Variável global para armazenar o caminho do arquivo
 		caminho_arquivo=$(curl -s "https://api.telegram.org/bot${botTOKEN}/getFile?file_id=$file_id" | jq -r '.result.file_path')
-
+		application=$(echo "$result" | jq -r '.[].message.voice.mime_type' | cut -d "/" -f2)
+		
 		# Baixando o arquivo de áudio usando o caminho obtido
 		curl -s -o $user_audios_dir${update_id}.${application} "https://api.telegram.org/file/bot${botTOKEN}/${caminho_arquivo}"
 		#processamento do audio em texto
@@ -302,16 +301,36 @@ print(r.recognize_google(audio_data, language=\"$idioma\"))")
     else
         echo "Falha ao criar o arquivo WAV."
     fi
-
+	#T3 codigo de audio
+	codigo="T3"
+	logAudio
 }
 
-exportacsv(){
+logImg(){
 	if [ ! -e "arquivos/log.csv" ]; then
 		# Cabeçalho do CSV 
     	echo "Timestamp,BotTOKEN,ChatID,Path_documento,Situacao,Json" >> arquivos/log.csv
 	fi		
 
-	echo $timestamp","$bot","$user_id","$user_id"/"$update_id".jpg"","$situacao","$file_json >>  arquivos/log.csv
+	echo $timestamp","$bot","$user_id","$user_id"/imgs/"$update_id".jpg"","$situacao","$file_json >>  arquivos/log.csv
+}
+
+logTexto(){
+	if [ ! -e "arquivos/logTexto.csv" ]; then
+		# Cabeçalho do CSV 
+    	echo "Timestamp,BotTOKEN,ChatID,Path_documento,Situacao,Json" >> arquivos/logTexto.csv
+	fi		
+
+	echo $timestamp","$bot","$user_id","$user_id"/jsons/"$update_id".txt"","$codigo","$file_jsonResult >>  arquivos/logTexto.csv
+}
+
+logAudio(){
+	if [ ! -e "arquivos/logAudio.csv" ]; then
+		# Cabeçalho do CSV 
+    	echo "Timestamp,BotTOKEN,ChatID,Path_documento,Situacao,Json" >> arquivos/logAudio.csv
+	fi		
+
+	echo $timestamp","$bot","$user_id","$user_id"/audios/"$update_id".jpg"","$situacao","$file_jsonResult >>  arquivos/logAudio.csv
 }
 
 #chama a função configuracao passando o primeiro parametro recebido, configura o token, conforme aonfiguracao "$bot"
