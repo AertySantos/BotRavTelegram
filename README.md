@@ -23,7 +23,7 @@ Outra funcionalidade deste bot é a capacidade de extrair texto de arquivos de �
    - Copie o token fornecido pelo BotFather.
 
 3. **Instalação das Dependências**
-   - Certifique-se de ter o `curl` e outras ferramentas de linha de comando necessárias instaladas em seu sistema.
+   - Certifique-se de ter o `curl`, `jr` e outras ferramentas de linha de comando necessárias instaladas em seu sistema.
 
 4. **Configuração das Credenciais**
    - Crie um arquivo `config.sh` na raiz do projeto.
@@ -35,7 +35,7 @@ Outra funcionalidade deste bot é a capacidade de extrair texto de arquivos de �
     ```
 
 5. **Execução do Bot**
-   - Execute `./bot.sh` para iniciar o bot.
+   - Execute `./main.sh` para iniciar o bot.
 
 6. **Utilização no Telegram**
    - Encontre o bot no Telegram e inicie uma conversa.
@@ -43,6 +43,3 @@ Outra funcionalidade deste bot é a capacidade de extrair texto de arquivos de �
 
 ## Contribuição
 Contribuições são bem-vindas! Se você deseja melhorar este bot de alguma forma, sinta-se à vontade para enviar um pull request.
-
-## Licença
-Este projeto está licenciado sob a Licença MIT. Consulte o arquivo [LICENSE](LICENSE) para obter detalhes.
