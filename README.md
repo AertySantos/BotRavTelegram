@@ -24,6 +24,14 @@ Outra funcionalidade deste bot é a capacidade de extrair texto de arquivos de �
 
 3. **Instalação das Dependências**
    - Certifique-se de ter o `curl`, `jr` e outras ferramentas de linha de comando necessárias instaladas em seu sistema.
+   - sudo apt install ffmpeg
+   - pip install SpeechRecognition
+   - pip install pyaudio
+   - Provavelmente dará algum erro
+   - sudo apt-get install python3-pyaudio
+   - sudo apt-get install portaudio19-dev python-all-dev python3-all-dev
+   - pip install pyaudio
+   - python -m speech_recognition
 
 4. **Configuração das Credenciais**
    - Crie um arquivo `config.sh` na raiz do projeto.
