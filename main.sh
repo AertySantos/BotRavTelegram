@@ -71,6 +71,8 @@ configuracaoUsuario(){
 	user_json_dir=${caminho_completo}/$user_id/jsons
 	user_imgs_dir=${caminho_completo}/$user_id/imgs/
 	user_audios_dir=${caminho_completo}/$user_id/audios/
+	user_dcs_dir=${caminho_completo}/$user_id/documentos/
+	mkdir -p $user_dcs_dir
 	mkdir -p $user_audios_dir
 	mkdir -p $user_imgs_dir
 	user_docs_dir=${caminho_completo}/$user_id/docs
@@ -112,6 +114,10 @@ function defineTipoInteracao(){
 		echo "Arquivo de audio"
 		tipoInteracao="voice"
 		processarAudio
+	elif [ "$(echo ${result} | jq -r ".[$indiceMensagem].message.document")" != null ]; then
+		echo "Documento"
+		tipoInteracao="document"
+		processarDocumento
 	fi
 	
 }
@@ -166,6 +172,23 @@ function ouvir(){
 	done
 }
 
+processarDocumento(){
+
+	file_id="$(echo ${result} | jq -r ".[].message.document.file_id")"
+    file_id="$(echo ${file_id} | cut -d " " -f1)"
+
+    file_json=`curl -s https://api.telegram.org/bot${botTOKEN}/getFile?file_id=${file_id}`
+    file_path="$(echo ${file_json} | jq -r ".result.file_path")"
+
+    application="$(echo ${file_path} | cut -d "." -f2)"
+
+	numero=$(shuf -i 1-21 -n 1)
+
+	msg="Esse documento pertence a classe $numero"
+
+    wget -q https://api.telegram.org/file/bot${botTOKEN}/${file_path} -O ${user_dcs_dir}/${update_id}.${application}
+
+}
 
 processarText(){
 	#
@@ -239,6 +262,7 @@ processarPhoto(){
 	fi
 	#codigo de imagem
 	codigo="T2"
+	textoRecebido=$msg
 	logImg
 
 }
@@ -303,25 +327,26 @@ print(r.recognize_google(audio_data, language=\"$idioma\"))")
     fi
 	#T3 codigo de audio
 	codigo="T3"
+	textoRecebido=$msg
 	logAudio
 }
 
 logImg(){
-	if [ ! -e "arquivos/log.csv" ]; then
+	if [ ! -e "arquivos/logImg.csv" ]; then
 		# Cabeçalho do CSV 
-    	echo "Timestamp,BotTOKEN,ChatID,Path_documento,Situacao,Json" >> arquivos/log.csv
+    	echo "Timestamp,BotTOKEN,ChatID,Path_documento,Situacao,Json" >> arquivos/logImg.csv
 	fi		
 
-	echo $timestamp","$bot","$user_id","$user_id"/imgs/"$update_id".jpg"","$situacao","$file_json >>  arquivos/log.csv
+	echo $timestamp","$bot","$user_id","$user_id"/imgs/"$update_id".jpg"","$situacao","$file_json >>  arquivos/logImg.csv
 }
 
 logTexto(){
 	if [ ! -e "arquivos/logTexto.csv" ]; then
 		# Cabeçalho do CSV 
-    	echo "Timestamp,BotTOKEN,ChatID,Path_documento,Situacao,Json" >> arquivos/logTexto.csv
+    	echo "Timestamp,BotTOKEN,ChatID,Path_documento,Tipo,Texto,Json" >> arquivos/logTexto.csv
 	fi		
 
-	echo $timestamp","$bot","$user_id","$user_id"/jsons/"$update_id".txt"","$codigo","$file_jsonResult >>  arquivos/logTexto.csv
+	echo $timestamp","$bot","$user_id","$user_id"/jsons/"$update_id".txt"","$codigo",{"$textoRecebido"},"$file_jsonResult >>  arquivos/logTexto.csv
 }
 
 logAudio(){
