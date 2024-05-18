@@ -24,6 +24,10 @@ Outra funcionalidade deste bot é a capacidade de extrair texto de arquivos de �
 
 3. **Instalação das Dependências**
    - Certifique-se de ter o `curl`, `jr` e outras ferramentas de linha de comando necessárias instaladas em seu sistema.
+   - sudo apt-get install jq
+   - sudo apt-get install curl
+   - sudo apt-get install tesseract-ocr
+   - sudo apt-get install tesseract-ocr-por
    - sudo apt install ffmpeg
    - pip install SpeechRecognition
    - pip install pyaudio
